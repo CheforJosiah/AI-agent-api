@@ -1,4 +1,5 @@
 import { registerUser, loginUser } from "../services/authService.js";
+import User from "../models/user.model.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -48,6 +49,7 @@ export const getCurrentUser = async (req, res, next) => {
       err.statusCode = 404;
       throw err;
     }
+    const expires = req.session?.cookie?.expires;
     res.status(200).json({
       success: true,
       data: {
@@ -55,7 +57,7 @@ export const getCurrentUser = async (req, res, next) => {
         fullName: user.fullName,
         email: user.email,
         role: user.role,
-        sessionExpires: new Date(req.session.cookie.expires).toISOString(),
+        sessionExpires: expires ? new Date(expires).toISOString() : null,
       }
     });
   } catch (error) {

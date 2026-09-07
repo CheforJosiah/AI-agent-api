@@ -31,11 +31,11 @@ export  const registerUser = async ({ fullName, email, password, role }) => {
 
 };
 
-export const loginUser = async ({ req, email, password }) => {
+export const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ email });
   if (!user) {
-    const error = new Error('User not found!');
-    error.statusCode = 404;
+    const error = new Error('Invalid email or password!');
+    error.statusCode = 401;
     throw error;
   }
 
@@ -46,20 +46,10 @@ export const loginUser = async ({ req, email, password }) => {
     throw error;
   }
 
-  req.session.userId = user._id;
-  req.session.role = user.role;
-
-  req.status(200).json({
-    success: true,
-    message: "User logged in successfully",
-    data: user,
-  });
-
   return {
     id: user._id,
     fullName: user.fullName,
     email: user.email,
     role: user.role,
   };
-
-}
+};
