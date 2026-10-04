@@ -8,8 +8,8 @@ import { requireAuth } from "../middleware/authMiddleware.js";
 
 const userRouter = Router();
 
-userRouter.get("/profile", requireAuth, getProfile);
-userRouter.put("/profile", requireAuth, updateProfile);
-userRouter.delete("/profile", requireAuth, deleteProfile);
+userRouter.get("/me", requireAuth, getProfile);
+userRouter.put("/me", requireAuth, updateProfile);
+userRouter.delete("/me", requireAuth, deleteProfile);
 
 export default userRouter;

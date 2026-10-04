@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 
 const SALT_ROUNDS = 10;
 
-export  const registerUser = async ({ fullName, email, password, role }) => {
+export  const registerUser = async ({ fullName, email, password, role, academicLevel, major, targetRole, skills, preferredGenres, learningStyle }) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     const error = new Error('User already exists!');
@@ -18,12 +18,18 @@ export  const registerUser = async ({ fullName, email, password, role }) => {
     email,
     password: passwordHash,
     role,
+    academicLevel,
+    major,
+    targetRole,
+    skills,
+    preferredGenres,
+    learningStyle,
   });
 
   await newUser.save();
 
   return {
-    id: newUser._id,
+    userId: newUser._id,
     fullName: newUser.fullName,
     email: newUser.email,
     role: newUser.role,
@@ -47,7 +53,7 @@ export const loginUser = async ({ email, password }) => {
   }
 
   return {
-    id: user._id,
+    userId: user._id,
     fullName: user.fullName,
     email: user.email,
     role: user.role,
