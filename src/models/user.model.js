@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
   },
   learningStyle: {
     type: String,
-    enum: ["project-based", "video", "reading", "hands-on", "theory"],
+    enum: ["Project-based", "Video", "Reading", "Hands-on", "Theory"],
   },
 }, {timestamps: true});
 

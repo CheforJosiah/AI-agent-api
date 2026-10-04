@@ -17,7 +17,7 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const user = await loginUser(req.body);
-    req.session.userId = user.id; // Store user ID in session
+    req.session.userId = user.userId; // Store user ID in session
     req.session.role = user.role; // Store user role in session
 
     res.status(200).json({

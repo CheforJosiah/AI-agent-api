@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import authRouter from './src/routes/auth.routes.js';
+import userRouter from './src/routes/user.routes.js';
 import connectToDB from './src/config/db.js';
 import { errorHandler } from './src/middleware/errorHandler.js';
 import sessionConfig from './src/config/session.js';
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(sessionConfig);
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/profiles', userRouter);
 
 app.use(errorHandler);
 
