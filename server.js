@@ -1,31 +1,13 @@
-import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import authRouter from './src/routes/auth.routes.js';
-import userRouter from './src/routes/user.routes.js';
+import app from './src/app.js';
 import connectToDB from './src/config/db.js';
-import { errorHandler } from './src/middleware/errorHandler.js';
-import sessionConfig from './src/config/session.js';
-
-const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
-
-// Session middleware registered BEFORE authentication routes
-app.use(sessionConfig);
-
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/profiles', userRouter);
-
-app.use(errorHandler);
-
-app.listen(PORT, async () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-
-  await connectToDB();
+connectToDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
 });
- 
-export default app;
