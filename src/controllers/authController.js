@@ -6,7 +6,7 @@ export const register = async (req, res, next) => {
     const user = await registerUser(req.body);
     res.status(201).json({
       success: true,
-      message: "User account created successfully",
+      message: "Account created successfully",
       data: user,
     });
   } catch (error) {
@@ -22,7 +22,7 @@ export const login = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "User logged in successfully",
+      message: "Logged in successfully",
       data: user,
     });
   } catch (error) {
@@ -53,7 +53,7 @@ export const getCurrentUser = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: {
-        id: user._id,
+        userId: user._id,
         fullName: user.fullName,
         email: user.email,
         role: user.role,

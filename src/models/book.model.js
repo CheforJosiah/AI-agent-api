@@ -22,6 +22,7 @@ const bookSchema = new mongoose.Schema({
   },
   skillLevel: {
     type: String,
+    enum: ['Beginner', 'Intermediate', 'Advanced'],
     required: [true, 'Book skill level is required'],
     trim: true,
     minLength: 2,
@@ -29,6 +30,7 @@ const bookSchema = new mongoose.Schema({
   },
   tags: {
     type: [String],
+    trim: true,
   }
 }, {timestamps: true});
 
