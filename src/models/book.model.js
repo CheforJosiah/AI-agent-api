@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
+import { nanoid } from 'nanoid';
 
 const bookSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: () => `BK_${nanoid(4)}`,
+  },
   title: {
     type: String,
     required: [true, 'Book title is required'],

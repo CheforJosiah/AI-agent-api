@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const userSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: () => `USR_${nanoid(6)}`,
+  },
   fullName: {
     type: String,
     required: [true, 'User full name is required'],
