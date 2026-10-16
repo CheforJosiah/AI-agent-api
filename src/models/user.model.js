@@ -31,26 +31,6 @@ const userSchema = new mongoose.Schema({
     enum: ['student', 'admin'],
     default: 'student',
   },
-  academicLevel: {
-    type: String,
-    required: true,
-  },
-  major: {
-    type: String,
-  },
-  targetRole: {
-    type: String,
-  },
-  skills: {
-    type: [String],
-  },
-  preferredGenres: {
-    type: [String],
-  },
-  learningStyle: {
-    type: String,
-    enum: ["Project-based", "Video", "Reading", "Hands-on", "Theory"],
-  },
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);

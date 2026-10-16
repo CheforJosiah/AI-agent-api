@@ -1,41 +1,40 @@
-import User from "../models/user.model.js";
 import {
-  getUserById,
-  updateUser,
-  deleteUser,
+  getProfile,
+  upsertProfile,
+  deleteProfile,
 } from "../services/userService.js";
 
-export const getProfile = async (req, res, next) => {
+export const getMyProfile = async (req, res, next) => {
   try {
-    const user = await getUserById(req.session.userId);
+    const profile = await getProfile(req.session.userId);
 
     res.status(200).json({
       success: true,
-      data: user,
+      data: profile,
     });
   } catch (error) {
-    next(error);
     next(error);
   }
 };
 
-export const updateProfile = async (req, res, next) => {
+export const updateMyProfile = async (req, res, next) => {
   try {
-    const user = await updateUser(req.session.userId, req.body);
+    const profile = await updateProfile(req.session.userId, req.body);
+
 
     res.status(200).json({
       success: true,
       message: "User profile updated successfully",
-      data: user,
+      data: profile,
     });
   } catch (error) {
     next(error);
   }
 };
 
-export const deleteProfile = async (req, res, next) => {
+export const deleteMyProfile = async (req, res, next) => {
   try {
-    const result = await deleteUser(req.session.userId);
+    const result = await deleteProfile(req.session.userId);
 
     if (!result) {
       return res.status(404).json({
