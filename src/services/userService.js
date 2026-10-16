@@ -1,51 +1,38 @@
-import User from "../models/user.model.js";
+import Profile from "../models/profile.model.js";
 
-export const getUserById = async (userId) => {
-  const user = await User.findById(userId);
+export const getProfile = async (userId) => {
+  const profile = await Profile.findById(userId);
 
-  if (!user) {
+  if (!profile) {
     return res.status(404).json({
       success: false,
       message: "User not found",
     });
   }
-  return {
-    id: user.userId,
-    academicLevel: user.academicLevel,
-    major: user.major,
-    targetRole: user.targetRole,
-    skills: user.skills,
-    preferredGenres: user.preferredGenres,
-    learningStyle: user.learningStyle,
-  };
+  return profile;
 };
 
-export const updateUser = async (userId, updateData) => {
-  const user = await User.findByIdAndUpdate(userId, updateData, {
+export const upsertProfile = async (userId, updateData) => {
+  const profile = await Profile.findOneAndUpdate(
+    { userId }, 
+    { $set: updateData }, {
     new: true,
+    upsert: true,
     runValidators: true,
   });
 
-  if (!user) {
+  if (!profile) {
     return res.status(404).json({
       success: false,
       message: "User not found",
     });
   }
 
-  return {
-    academicLevel: user.academicLevel,
-    major: user.major,
-    targetRole: user.targetRole,
-    skills: user.skills,
-    preferredGenres: user.preferredGenres,
-    learningStyle: user.learningStyle,
-    timestamp: user.updatedAt,
-  };
+  return profile;
 };
 
-export const deleteUser = async (userId) => {
-  const user = await User.findByIdAndDelete(userId);
+export const deleteProfile = async (userId) => {
+  const profile = await Profile.findByIdAndDelete(userId);
 
-  return user ? { success: true, message: "User deleted successfully" } : null;
+  return profile ? { success: true, message: "Profile deleted successfully" } : null;
 };

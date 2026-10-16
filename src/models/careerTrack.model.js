@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const careerTrackSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: () => `TR_${nanoid(6)}`,
+  },
   title: {
     type: String,
     required: [true, 'Career track title is required'],

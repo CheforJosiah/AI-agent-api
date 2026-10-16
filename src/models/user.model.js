@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+import { nanoid } from "nanoid";
 
 const userSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    default: () => `USR_${nanoid(6)}`,
+  },
   fullName: {
     type: String,
     required: [true, 'User full name is required'],
@@ -25,26 +30,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['student', 'admin'],
     default: 'student',
-  },
-  academicLevel: {
-    type: String,
-    required: true,
-  },
-  major: {
-    type: String,
-  },
-  targetRole: {
-    type: String,
-  },
-  skills: {
-    type: [String],
-  },
-  preferredGenres: {
-    type: [String],
-  },
-  learningStyle: {
-    type: String,
-    enum: ["Project-based", "Video", "Reading", "Hands-on", "Theory"],
   },
 }, {timestamps: true});
 
