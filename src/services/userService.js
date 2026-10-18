@@ -1,7 +1,7 @@
 import Profile from "../models/profile.model.js";
 
 export const getProfile = async (userId) => {
-  const profile = await Profile.findById(userId);
+  const profile = await Profile.findOne({ userId });
 
   if (!profile) {
     return res.status(404).json({
@@ -14,7 +14,7 @@ export const getProfile = async (userId) => {
 
 export const upsertProfile = async (userId, updateData) => {
   const profile = await Profile.findOneAndUpdate(
-    { userId }, 
+    { userId },
     { $set: updateData }, {
     new: true,
     upsert: true,
@@ -28,7 +28,9 @@ export const upsertProfile = async (userId, updateData) => {
     });
   }
 
-  return profile;
+  return {
+    updatedAt: profile.updatedAt,
+  }
 };
 
 export const deleteProfile = async (userId) => {
