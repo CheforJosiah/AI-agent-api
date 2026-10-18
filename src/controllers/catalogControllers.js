@@ -30,7 +30,7 @@ export const addBook = async (req, res, next) => {
 export const listCareerTracks = async (req, res, next) => {
   try {
     const { domain } = req.query;
-    const { tracks } = await getCareerTracks({ domain });
+    const tracks = await getCareerTracks({ domain });
 
     res.status(200).json({
       success: true,

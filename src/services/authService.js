@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import User from '../models/user.model.js';
+import Profile from '../models/profile.model.js';
 
 const SALT_ROUNDS = 10;
 
-export  const registerUser = async ({ fullName, email, password, role, academicLevel, major, targetRole, skills, preferredGenres, learningStyle }) => {
+export  const registerUser = async ({ fullName, email, password, role }) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     const error = new Error('User already exists!');
@@ -17,16 +18,11 @@ export  const registerUser = async ({ fullName, email, password, role, academicL
     fullName,
     email,
     password: passwordHash,
-    role,
-    academicLevel,
-    major,
-    targetRole,
-    skills,
-    preferredGenres,
-    learningStyle,
+    role: role || 'student', // Default role is 'student' if not provided
   });
 
   await newUser.save();
+  await Profile.create({ userId: newUser._id }); // Create an empty profile for the new user
 
   return {
     userId: newUser._id,

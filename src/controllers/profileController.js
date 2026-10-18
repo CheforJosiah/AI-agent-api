@@ -19,7 +19,7 @@ export const getMyProfile = async (req, res, next) => {
 
 export const updateMyProfile = async (req, res, next) => {
   try {
-    const profile = await updateProfile(req.session.userId, req.body);
+    const profile = await upsertProfile(req.session.userId, req.body);
 
 
     res.status(200).json({
